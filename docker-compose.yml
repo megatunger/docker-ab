@@ -27,6 +27,8 @@ services:
     extends:
       file: ./ubuntu/docker-compose.yml
       service: ubuntu
+    volumes:
+      - /tmp:/tmp:rw
 
 volumes:
   esdata:
