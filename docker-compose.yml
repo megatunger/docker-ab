@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  elasticsearch:
+    extends:
+      file: ./elasticsearch/docker-compose.yml
+      service: elasticsearch
+
+  logstash:
+    extends:
+      file: ./logstash/docker-compose.yml
+      service: logstash
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+      - mysqllog:/mnt/data:rw
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    extends:
+      file: ./kibana/docker-compose.yml
+      service: kibana
+    depends_on:
+      - elasticsearch
+
+volumes:
+  esdata:
+
+networks:
+  esnet:
+    driver: bridge
