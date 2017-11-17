@@ -12,7 +12,7 @@ services:
       service: logstash
     volumes:
       - ./logstash/pipeline:/usr/share/logstash/pipeline
-      - mysqllog:/mnt/data:rw
+      - /tmp:/mnt/data:rw
     depends_on:
       - elasticsearch
 
@@ -22,6 +22,11 @@ services:
       service: kibana
     depends_on:
       - elasticsearch
+
+  ubuntu:
+    extends:
+      file: ./ubuntu/docker-compose.yml
+      service: ubuntu
 
 volumes:
   esdata:
